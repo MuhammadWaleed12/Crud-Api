@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import './Form.css';
 
-const form = () => {
+const form = (props) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const formik = useFormik({
         initialValues: {
@@ -30,7 +30,8 @@ const form = () => {
                 .required("Required!")
         }),
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            debugger;
+            props.clicked({values});
         }
     });
 
@@ -41,7 +42,7 @@ const form = () => {
                     <label>Name</label>
                     <input
                         type="text"
-                        name="full_name"
+                        name="name"
                         value={formik.values.name}
                         onChange={formik.handleChange}
                     />
@@ -86,7 +87,7 @@ const form = () => {
                     )}
                 </div>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button type="submit" onSubmit={formik.handleSubmit} disabled={!formik.isValid}>Submit</button>
                 </div>
             </form>
         </div>
